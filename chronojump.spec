@@ -1,13 +1,12 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	1.4.4.1
+Version:	1.4.5
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.4/%{name}-%{version}.tar.xz
-# Source0-md5:	b01efd745109082345cfb790b42cdf27
-Patch0:		%{name}-format.patch
+# Source0-md5:	7a5d9ce2bdd4f06db76cde90faa58089
 URL:		http://chronojump.org/
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 2.0
@@ -35,7 +34,6 @@ nauczycieli oraz uczniów.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure \
