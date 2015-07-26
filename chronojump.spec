@@ -1,14 +1,15 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	1.4.5
+Version:	1.5.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.4/%{name}-%{version}.tar.xz
-# Source0-md5:	7a5d9ce2bdd4f06db76cde90faa58089
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.5/%{name}-%{version}.tar.xz
+# Source0-md5:	7d45f9ede14b828ff0d6fe59772e8015
 URL:		http://chronojump.org/
-BuildRequires:	gettext-devel
+BuildRequires:	dotnet-gtk-sharp2-devel >= 2.0
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gstreamer0.10-devel >= 0.10
 BuildRequires:	gstreamer0.10-plugins-base-devel >= 0.10
@@ -49,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/chronojump/*.la
 
+# packaged as %doc
+%{__rm} $RPM_BUILD_ROOT%{_docdir}/chronojump/*.pdf
+
 %find_lang %{name}
 
 %clean
@@ -62,8 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README manual/{chronojump_encoder_manual_english,chronojump_manual_en}.pdf
-%lang(es) %doc manual/{chronojump_encoder_manual_spanish,chronojump_manual_es}.pdf
+%doc AUTHORS ChangeLog README manual/{chronojump_crash,chronojump_manual_en,troubleshooting}.pdf
+%lang(es) %doc manual/chronojump_manual_es.pdf
 %attr(755,root,root) %{_bindir}/chronojump
 %attr(755,root,root) %{_bindir}/chronojump-test-accuracy
 %attr(755,root,root) %{_bindir}/chronojump-test-jumps
@@ -80,13 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/chronojump/CesarPlayer.dll
 %{_libdir}/chronojump/CesarPlayer.dll.config
 %{_libdir}/chronojump/CesarPlayer.dll.mdb
-%{_libdir}/chronojump/RDotNet.dll
-%{_libdir}/chronojump/RDotNet.dll.mdb
-%{_libdir}/chronojump/RDotNet.NativeLibrary.dll
-%{_libdir}/chronojump/RDotNet.NativeLibrary.dll.mdb
 %{_libdir}/chronojump/chronojumpServer.dll
 %{_libdir}/chronojump/chronojumpServer.dll.mdb
 %{_libdir}/chronojump/python
 %{_datadir}/chronojump
 %{_desktopdir}/chronojump.desktop
-%{_iconsdir}/hicolor/scalable/apps/chronojump-logo-2013.svg
+%{_iconsdir}/hicolor/scalable/apps/chronojump_icon.svg
