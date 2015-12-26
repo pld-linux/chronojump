@@ -1,12 +1,12 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	1.5.5
+Version:	1.5.6
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.5/%{name}-%{version}.tar.xz
-# Source0-md5:	578a3442b5c08d8ee61af2f027bd2746
+# Source0-md5:	9c8684a5402dbd12ba6e0fa3666f2760
 URL:		http://chronojump.org/
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.0
 BuildRequires:	gettext-tools
@@ -18,6 +18,7 @@ BuildRequires:	intltool >= 0.40.0
 BuildRequires:	mono-devel >= 2.8
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2
+BuildRequires:	sed >= 4.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	mono >= 2.8
@@ -35,6 +36,8 @@ nauczycieli oraz uczniów.
 
 %prep
 %setup -q
+
+%{__sed} -i -e '1s,/usr/bin/env python,%{__python},' chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in
 
 %build
 %configure \
