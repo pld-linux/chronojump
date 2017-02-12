@@ -1,13 +1,16 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	1.6.1
+Version:	1.7.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	058a0fc06174e11110606731c0563738
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.7/%{name}-%{version}.tar.xz
+# Source0-md5:	f2c4bbee62a7b138e4f2ac96d7d6934b
+Patch0:		%{name}-missing.patch
 URL:		http://chronojump.org/
+BuildRequires:	autoconf >= 2.54
+BuildRequires:	automake
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.0
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 2.0
@@ -15,6 +18,7 @@ BuildRequires:	gstreamer0.10-devel >= 0.10
 BuildRequires:	gstreamer0.10-plugins-base-devel >= 0.10
 BuildRequires:	gtk+2-devel >= 2:2.8
 BuildRequires:	intltool >= 0.40.0
+BuildRequires:	libtool >= 2:2
 BuildRequires:	mono-devel >= 2.8
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2
@@ -36,10 +40,15 @@ nauczycieli oraz uczniów.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python,%{__python},' chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in
 
 %build
+%{__libtoolize}
+%{__aclocal} -I build/m4 -I build/m4/shave -I build/m4/shamrock
+%{__autoconf}
+%{__automake}
 %configure \
 	--disable-static
 
@@ -75,6 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/chronojump-test-accuracy
 %attr(755,root,root) %{_bindir}/chronojump-test-jumps
 %attr(755,root,root) %{_bindir}/chronojump-test-stream
+%attr(755,root,root) %{_bindir}/chronojump_importer.py
 %attr(755,root,root) %{_bindir}/chronojump_mini
 %attr(755,root,root) %{_bindir}/chronopic-firmwarecord
 %dir %{_libdir}/chronojump
@@ -87,8 +97,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/chronojump/CesarPlayer.dll
 %{_libdir}/chronojump/CesarPlayer.dll.config
 %{_libdir}/chronojump/CesarPlayer.dll.mdb
+%if 0
+# disabled in 1.7
 %{_libdir}/chronojump/chronojumpServer.dll
 %{_libdir}/chronojump/chronojumpServer.dll.mdb
+%endif
 %{_libdir}/chronojump/python
 %{_datadir}/chronojump
 %{_desktopdir}/chronojump.desktop
