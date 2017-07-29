@@ -1,12 +1,12 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	1.7.0
+Version:	1.7.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.7/%{name}-%{version}.tar.xz
-# Source0-md5:	f2c4bbee62a7b138e4f2ac96d7d6934b
+# Source0-md5:	c2e77b7556e992b4b86c35450fc7242a
 Patch0:		%{name}-missing.patch
 URL:		http://chronojump.org/
 BuildRequires:	autoconf >= 2.54
@@ -80,11 +80,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README manual/{chronojump_crash,chronojump_manual_en,troubleshooting}.pdf
 %lang(es) %doc manual/chronojump_manual_es.pdf
+%attr(755,root,root) %{_bindir}/MFRC522.py
 %attr(755,root,root) %{_bindir}/chronojump
 %attr(755,root,root) %{_bindir}/chronojump-test-accuracy
 %attr(755,root,root) %{_bindir}/chronojump-test-jumps
 %attr(755,root,root) %{_bindir}/chronojump-test-stream
 %attr(755,root,root) %{_bindir}/chronojump_importer.py
+%attr(755,root,root) %{_bindir}/chronojump_rfid_capture.py
 %attr(755,root,root) %{_bindir}/chronojump_mini
 %attr(755,root,root) %{_bindir}/chronopic-firmwarecord
 %dir %{_libdir}/chronojump
