@@ -1,17 +1,16 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	1.9.0
+Version:	2.0.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 # release file misses many files
-#Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/1.9/%{name}-%{version}.tar.xz
-## Source0-md5:	6e7f09b7ec9ec2e2bc172b9e95d4db3e
+#Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/2.0/%{name}-%{version}.tar.xz
+## Source0-md5:	6af7450421e386cf6d5d0cc3e9cd6bac
 # ...so use git
 Source0:	https://gitlab.gnome.org/GNOME/chronojump/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	9345a0ebe6a5e8652b65b5b6883a3db1
-Patch0:		%{name}-mono4.patch
+# Source0-md5:	4de037421779f885a415259672ece65b
 URL:		http://chronojump.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
@@ -42,9 +41,12 @@ nauczycieli oraz uczniów.
 
 %prep
 %setup -q
-%patch0 -p1
 
-%{__sed} -i -e '1s,/usr/bin/env python,%{__python},' chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in
+%{__sed} -i -e '1s,/usr/bin/env python,%{__python},' \
+	chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in \
+	rfid/{MFRC522,chronojump_rfid_capture}.py
+
+%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' src/chronojump-importer/chronojump_importer.py
 
 %build
 %{__intltoolize}
@@ -64,6 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/chronojump/*.la
+# too common name
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/test-delete.py
 
 # packaged as %doc
 %{__rm} $RPM_BUILD_ROOT%{_docdir}/chronojump/*.pdf
@@ -81,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS MAINTAINERS README TODO.txt manual/{chronojump_crash,chronojump_manual_en,troubleshooting}.pdf
+%doc AUTHORS MAINTAINERS README TODO.txt manual/chronojump_manual_en.pdf
 %lang(es) %doc manual/chronojump_manual_es.pdf
 %attr(755,root,root) %{_bindir}/MFRC522.py
 %attr(755,root,root) %{_bindir}/chronojump
@@ -92,7 +96,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/chronojump_mini
 %attr(755,root,root) %{_bindir}/chronojump_rfid_capture.py
 %attr(755,root,root) %{_bindir}/chronopic-firmwarecord
-%attr(755,root,root) %{_bindir}/test-delete.py
 %dir %{_libdir}/chronojump
 %attr(755,root,root) %{_libdir}/chronojump/libchronopic.so*
 %{_libdir}/chronojump/Chronojump.exe
