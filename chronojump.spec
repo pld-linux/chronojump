@@ -1,7 +1,7 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	2.0.1
+Version:	2.0.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
@@ -10,7 +10,7 @@ Group:		X11/Applications/Games
 ## Source0-md5:	6af7450421e386cf6d5d0cc3e9cd6bac
 # ...so use git
 Source0:	https://gitlab.gnome.org/GNOME/chronojump/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	1518028cf230d31c579e4bb38a49c3fa
+# Source0-md5:	d126a9241520c284437e159892a8f360
 URL:		http://chronojump.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
@@ -44,7 +44,7 @@ nauczycieli oraz uczniów.
 
 %{__sed} -i -e '1s,/usr/bin/env python,%{__python},' \
 	chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in \
-	rfid/{MFRC522,chronojump_rfid_capture}.py
+	rfid_raspberry_old/{MFRC522,chronojump_rfid_capture}.py
 
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' src/chronojump-importer/chronojump_importer.py
 
@@ -87,14 +87,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS MAINTAINERS README TODO.txt manual/chronojump_manual_en.pdf
 %lang(es) %doc manual/chronojump_manual_es.pdf
-%attr(755,root,root) %{_bindir}/MFRC522.py
 %attr(755,root,root) %{_bindir}/chronojump
 %attr(755,root,root) %{_bindir}/chronojump-test-accuracy
 %attr(755,root,root) %{_bindir}/chronojump-test-jumps
 %attr(755,root,root) %{_bindir}/chronojump-test-stream
 %attr(755,root,root) %{_bindir}/chronojump_importer.py
 %attr(755,root,root) %{_bindir}/chronojump_mini
-%attr(755,root,root) %{_bindir}/chronojump_rfid_capture.py
 %attr(755,root,root) %{_bindir}/chronopic-firmwarecord
 %dir %{_libdir}/chronojump
 %attr(755,root,root) %{_libdir}/chronojump/libchronopic.so*
