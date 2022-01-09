@@ -58,7 +58,7 @@ nauczycieli oraz uczniów.
 %configure \
 	--disable-static
 
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
