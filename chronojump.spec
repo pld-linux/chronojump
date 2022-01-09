@@ -1,17 +1,17 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	2.1.2
+Version:	2.2.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
-# release file misses many files
-#Source0:	http://ftp.gnome.org/pub/GNOME/sources/chronojump/2.0/%{name}-%{version}.tar.xz
-## Source0-md5:	6af7450421e386cf6d5d0cc3e9cd6bac
-# ...so use git
-Source0:	https://gitlab.gnome.org/GNOME/chronojump/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	3b6015b5a5ab3360bbb61ac94f4945c5
-URL:		http://chronojump.org/
+# release file (misses some files in many releases)
+Source0:	https://download.gnome.org/sources/chronojump/2.2/%{name}-%{version}.tar.xz
+# Source0-md5:	a1160b65c3083c7dc4e36608e5297733
+# in case of missing files, use git
+#Source0:	https://gitlab.gnome.org/GNOME/chronojump/-/archive/%{version}/%{name}-%{version}.tar.bz2
+## Source0-md5:	3b6015b5a5ab3360bbb61ac94f4945c5
+URL:		https://chronojump.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.0
@@ -24,6 +24,8 @@ BuildRequires:	mono-devel >= 2.8
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 2
 BuildRequires:	sed >= 4.0
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	mono >= 2.8
@@ -43,8 +45,7 @@ nauczycieli oraz uczniów.
 %setup -q
 
 %{__sed} -i -e '1s,/usr/bin/env python,%{__python},' \
-	chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in \
-	rfid_raspberry_old/{MFRC522,chronojump_rfid_capture}.py
+	chronopic-firmware/chronopic-firmwarecord/chronopic-firmwarecord.in
 
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' src/chronojump-importer/chronojump_importer.py
 
@@ -85,7 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS MAINTAINERS README TODO.txt manual/chronojump_manual_en.pdf
+%doc AUTHORS README manual/chronojump_manual_en.pdf
 %lang(es) %doc manual/chronojump_manual_es.pdf
 %attr(755,root,root) %{_bindir}/chronojump
 %attr(755,root,root) %{_bindir}/chronojump-test-accuracy
