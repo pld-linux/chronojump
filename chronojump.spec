@@ -1,13 +1,13 @@
 Summary:	ChronoJump - system for measurement, management and statistics of the jump events
 Summary(pl.UTF-8):	ChronoJump - system do pomiarów, zarządzania i statystyk skoków
 Name:		chronojump
-Version:	2.2.0
+Version:	2.2.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 # release file (misses some files in many releases)
 Source0:	https://download.gnome.org/sources/chronojump/2.2/%{name}-%{version}.tar.xz
-# Source0-md5:	a1160b65c3083c7dc4e36608e5297733
+# Source0-md5:	417789e96ce2b3c76e145ace491f8a79
 # in case of missing files, use git
 #Source0:	https://gitlab.gnome.org/GNOME/chronojump/-/archive/%{version}/%{name}-%{version}.tar.bz2
 ## Source0-md5:	3b6015b5a5ab3360bbb61ac94f4945c5
